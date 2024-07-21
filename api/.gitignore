@@ -4,3 +4,5 @@ lib
 .venv
 pyvenv.cfg
  
+__pycache__/
+.env
