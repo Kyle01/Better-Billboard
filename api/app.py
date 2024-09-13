@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request, json, abort
 import hashlib
 import psycopg2
 from dotenv import load_dotenv
-from scrape import scrape_billboard
+from scrape import scrape_billboard, save_items
 
 app = Flask(__name__)
 
@@ -41,6 +41,19 @@ def get_db_connection():
     return conn
 
 @app.route('/scrape')
-def second_endpoint():
+def scrape():
     verify_authentication()
-    scrape_billboard()
+    list = scrape_billboard()
+    save_items(list)
+    return "Success", 200
+
+@app.route('/get_all_entries')
+def index():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM song_rankings;')
+    for row in cur:
+        print(row)
+
+    return "Success", 200
+    
