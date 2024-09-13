@@ -1,5 +1,9 @@
 from bs4 import BeautifulSoup
 import urllib.request
+import os
+import psycopg2
+from dotenv import load_dotenv
+from datetime import date
 
 def scrape_billboard():
    billboard_entries = []
@@ -25,8 +29,8 @@ def scrape_billboard():
          pos_last_week = 'RE ENTRY' 
 
       billboard_entry = {
-         "artist": item.h3.find_next('span').get_text().strip(),
-         "song_name": item.h3.get_text().strip(),
+         "artist": item.h3.find_next('span').get_text().strip().replace("'", "''"),
+         "song_name": item.h3.get_text().strip().replace("'", "''"),
          "position": pos,
          "position_last_week": pos_last_week,
          "position_peak": item.find_all('span')[3].get_text().strip(),
@@ -37,5 +41,15 @@ def scrape_billboard():
       dir = None
 
       billboard_entries.append(billboard_entry)
+   
+   return billboard_entries
 
-   print(billboard_entries)
+def save_items(list):
+   load_dotenv() 
+   DB_CONNECTION_URL = os.environ.get('DB_CONNECTION_URL')
+   conn = psycopg2.connect(DB_CONNECTION_URL)
+
+   cur = conn.cursor()
+   for song in list:
+      cur.execute(f"INSERT INTO song_rankings (artist, song_name, position, position_last_Week, position_peak, weeks_on_chart, direction, date) VALUES ('{song['artist']}', '{song['song_name']}', '{song['position']}', '{song['position_last_week']}', '{song['position_peak']}', '{song['weeks_on_chart']}', '{song['direction']}', '{date.today()}');")
+      conn.commit()
