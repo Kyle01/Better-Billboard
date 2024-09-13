@@ -52,8 +52,8 @@ def index():
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute('SELECT * FROM song_rankings;')
-    songs = cur.fetchall()
-    cur.close()
-    conn.close()
+    for row in cur:
+        print(row)
+
+    return "Success", 200
     
-    return songs
