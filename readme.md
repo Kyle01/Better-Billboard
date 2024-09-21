@@ -1,5 +1,5 @@
-Read me place holder
-
+# Overview
+To complete
 
 # Getting Started Guide
 ## Backend 
@@ -15,9 +15,6 @@ Read me place holder
 10. Server will be running on http://127.0.0.1:5000
 
 To do 
-1 cron job
-3 make a better fetch 
-    date 
-    include variable names 
-spin up the frontend 
-tidy it up 
+1. cron job
+2. spin up the frontend 
+3. tidy it up 
