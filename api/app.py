@@ -4,6 +4,7 @@ import hashlib
 import psycopg2
 from dotenv import load_dotenv
 from scrape import scrape_billboard, save_items
+from util import most_recent_tuesday
 
 app = Flask(__name__)
 
@@ -48,12 +49,55 @@ def scrape():
     return "Success", 200
 
 @app.route('/get_all_entries')
-def index():
+def fetch_all():
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute('SELECT * FROM song_rankings;')
-    for row in cur:
-        print(row)
+    query = """
+        SELECT *
+        FROM song_rankings
 
-    return "Success", 200
+    """
+    cur.execute(query)
+    results = []
+    for row in cur:
+        billboard_entry = {
+            "position": row[0],
+            "artist": row[1],
+            "song_name": row[2],
+            "position_last_week": row[4],
+            "position_peak": row[5],
+            "weeks_on_chart": row[6],
+            "direction": row[7],
+            "date": row[8],
+        }
+        results.append(billboard_entry)
+
+    return jsonify(results)
     
+@app.route('/chart')
+def chart():
+    last_tuesday_date = most_recent_tuesday()
+    conn = get_db_connection()
+    cur = conn.cursor()
+    query = """
+        SELECT *
+        FROM song_rankings
+        WHERE date::date = %s;
+
+    """
+    cur.execute(query, (last_tuesday_date,))
+    results = []
+    for row in cur:
+        billboard_entry = {
+            "position": row[0],
+            "artist": row[1],
+            "song_name": row[2],
+            "position_last_week": row[4],
+            "position_peak": row[5],
+            "weeks_on_chart": row[6],
+            "direction": row[7],
+            "date": row[8],
+        }
+        results.append(billboard_entry)
+
+    return jsonify(results)
