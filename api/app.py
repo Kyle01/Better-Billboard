@@ -52,8 +52,19 @@ def index():
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute('SELECT * FROM song_rankings;')
+    results = []
     for row in cur:
-        print(row)
+        billboard_entry = {
+            "position": row[0],
+            "artist": row[1],
+            "song_name": row[2],
+            "position_last_week": row[4],
+            "position_peak": row[5],
+            "weeks_on_chart": row[6],
+            "direction": row[7],
+            "date": row[8],
+        }
+        results.append(billboard_entry)
 
-    return "Success", 200
+    return jsonify(results)
     
