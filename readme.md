@@ -8,8 +8,8 @@ To complete
 3. Change directory to the backend `$ cd api`
 4. Create a new virtual environment using `$ python -m .venv` 
 5. Change directory to the bin of the virtual environment `$ cd .venv/bin/`
-6. Change directory back to the api folder with `$ cd ../.. ` 
-7. Start the virtual environment `$ source activate` 
+6. Start the virtual environment `$ source activate` 
+7. Change directory back to the api folder with `$ cd ../.. ` 
 8. Install the requirements `pip in`stall -r requirements.txt`
 9. Start the flask server with `flask --debug run`
 10. Server will be running on http://127.0.0.1:5000

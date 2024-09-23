@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify, request, json, abort
+from flask import Flask, jsonify, request, json, abort, request
 import hashlib
 import psycopg2
 from dotenv import load_dotenv
@@ -19,15 +19,13 @@ def verify_authentication():
     try: 
         secret = os.environ.get('SECRET_HASH')
 
-        parse_headers = json.loads(json.dumps({**request.headers}))
-        csrf_token = parse_headers["Cookie"].split('; ')[0].split("=")[1]
-        print(csrf_token)
-        request_token = csrf_token.split("%7C")[0]
-        request_hash = csrf_token.split("%7C")[1]
-        
+        request_token = request.headers['Token']
+        request_hash =  request.headers['Hash']
+
         hasher = hashlib.sha256()
         hasher.update(f'{request_token}{secret}'.encode('utf-8'))
         secret_hash = hasher.hexdigest()
+
 
         if secret_hash != request_hash:
             abort(403)
