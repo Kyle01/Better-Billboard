@@ -1,6 +1,13 @@
 # Overview
 To complete
 
+# Implementation Details 
+## Backend 
+Backend is written in Python and is a Flask App Deployed on Vercel 
+
+## Cron 
+Cron a Python written AWS Lambda Function with an AWS scheduled cron event every Tuesday (32 5 ? * 3 * ). The CRON hits the backend and tell it to perform the scrape amd save it to the database. 
+
 # Getting Started Guide
 ## Backend 
 1. Ensure you have python installed using `$ python --version`. The project supports Python 3.12.4
@@ -15,6 +22,5 @@ To complete
 10. Server will be running on http://127.0.0.1:5000
 
 To do 
-1. cron job
-2. spin up the frontend 
-3. tidy it up 
+1. spin up the frontend 
+2. tidy it up 
