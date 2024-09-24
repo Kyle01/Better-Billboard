@@ -6,7 +6,7 @@ To complete
 Backend is written in Python and is a Flask App Deployed on Vercel 
 
 ## Cron 
-Cron a Python written AWS Lambda Function with an AWS scheduled cron event every Tuesday (32 5 ? * 3 * ). The CRON hits the backend and tell it to perform the scrape amd save it to the database. 
+Cron a Python written AWS Lambda with an AWS EventBridge cron event every Tuesday (32 5 ? * 3 * ). The CRON hits the backend and tell it to perform the scrape amd save it to the database. 
 
 # Getting Started Guide
 ## Backend 
