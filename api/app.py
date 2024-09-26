@@ -78,7 +78,6 @@ def chart():
     formatted_date = last_tuesday_date.strftime('%Y-%m-%d')
     conn = get_db_connection()
     cur = conn.cursor()
-    print(last_tuesday_date)
     query = """
         SELECT *
         FROM song_rankings
