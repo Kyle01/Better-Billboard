@@ -19,11 +19,9 @@ function IndexPage() {
     fetchData();
   }, []);
 
-  if (loading) {
+  if (loading || !data) {
     return <p>Loading...</p>;
   }
-
-  console.log(data)
 
   return (
     <div className='flex justify-center w-full'>
