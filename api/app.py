@@ -75,6 +75,7 @@ def fetch_all():
 @app.route('/chart')
 def chart():
     last_tuesday_date = most_recent_tuesday()
+    formatted_date = last_tuesday_date.strftime('%Y-%m-%d')
     conn = get_db_connection()
     cur = conn.cursor()
     query = """
@@ -83,7 +84,7 @@ def chart():
         WHERE date::date = %s;
 
     """
-    cur.execute(query, (last_tuesday_date,))
+    cur.execute(query, (formatted_date,))
     results = []
     for row in cur:
         billboard_entry = {
