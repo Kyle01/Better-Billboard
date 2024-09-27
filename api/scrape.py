@@ -24,22 +24,33 @@ def scrape_billboard():
          else:
             dir = 'horizontal'
       pos = str(idx + 1)
+
       pos_last_week = item.find_all('span')[2].get_text().strip()
       if pos_last_week == 'RE-\nENTRY':
          pos_last_week = 'RE ENTRY' 
-
-      billboard_entry = {
+      
+      if item.find_all('span')[2].get_text().strip() == 'NEW' or item.find_all('span')[2].get_text().strip() == 'RE ENTRY':
+         billboard_entry = {
          "artist": item.h3.find_next('span').get_text().strip().replace("'", "''"),
          "song_name": item.h3.get_text().strip().replace("'", "''"),
          "position": pos,
          "position_last_week": pos_last_week,
-         "position_peak": item.find_all('span')[3].get_text().strip(),
-         "weeks_on_chart": item.find_all('span')[4].get_text().strip(),
+         "position_peak": item.find_all('span')[5].get_text().strip(),
+         "weeks_on_chart": item.find_all('span')[6].get_text().strip(),
          "direction": dir or pos_last_week
       }
-      
-      dir = None
+      else:
+         billboard_entry = {
+            "artist": item.h3.find_next('span').get_text().strip().replace("'", "''"),
+            "song_name": item.h3.get_text().strip().replace("'", "''"),
+            "position": pos,
+            "position_last_week": pos_last_week,
+            "position_peak": item.find_all('span')[3].get_text().strip(),
+            "weeks_on_chart": item.find_all('span')[4].get_text().strip(),
+            "direction": dir or pos_last_week
+         }
 
+      dir = None
       billboard_entries.append(billboard_entry)
    
    return billboard_entries
