@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from datetime import date
 
 
+
 def scrape_billboard():
    billboard_entries = []
 
@@ -30,7 +31,7 @@ def scrape_billboard():
          pos_last_week = 'RE ENTRY' 
       
 
-      if pos_last_week == 'NEW':
+      if pos_last_week == 'NEW' or pos_last_week == 'RE ENTRY':
          position_peak = pos
       else: 
          position_peak = item.find_all('span')[3].get_text().strip()
