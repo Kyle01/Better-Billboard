@@ -5,6 +5,7 @@ import psycopg2
 from dotenv import load_dotenv
 from datetime import date
 
+
 def scrape_billboard():
    billboard_entries = []
 
@@ -27,13 +28,20 @@ def scrape_billboard():
       pos_last_week = item.find_all('span')[2].get_text().strip()
       if pos_last_week == 'RE-\nENTRY':
          pos_last_week = 'RE ENTRY' 
+      
+
+      if pos_last_week == 'NEW':
+         position_peak = pos
+      else: 
+         position_peak = item.find_all('span')[3].get_text().strip()
+
 
       billboard_entry = {
          "artist": item.h3.find_next('span').get_text().strip().replace("'", "''"),
          "song_name": item.h3.get_text().strip().replace("'", "''"),
          "position": pos,
          "position_last_week": pos_last_week,
-         "position_peak": item.find_all('span')[3].get_text().strip(),
+         "position_peak": position_peak,
          "weeks_on_chart": item.find_all('span')[4].get_text().strip(),
          "direction": dir or pos_last_week
       }
