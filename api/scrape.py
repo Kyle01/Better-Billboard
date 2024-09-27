@@ -4,9 +4,6 @@ import os
 import psycopg2
 from dotenv import load_dotenv
 from datetime import date
-# import json
-#regular entry 8[7] span positions
-#NEW entry 10[9] positions, NEW is inserted into position [1,2]
 
 def scrape_billboard():
    billboard_entries = []
@@ -33,14 +30,6 @@ def scrape_billboard():
          pos_last_week = 'RE ENTRY' 
       
       if item.find_all('span')[2].get_text().strip() == 'NEW' or item.find_all('span')[2].get_text().strip() == 'RE ENTRY':
-         #pos_last_week = item.find_all('span')[4].get_text().strip()
-         #this above pulls in the actuall data from the site, Below will display 'NEW' or 'Rentry' in the last week column
-
-         #pos_last_week = item.find_all('span')[2].get_text().strip()
-
-         #i realize now that this pos_last_week is the same as the variable outside of the conditional here, so we will leave it out.
-         
-
          billboard_entry = {
          "artist": item.h3.find_next('span').get_text().strip().replace("'", "''"),
          "song_name": item.h3.get_text().strip().replace("'", "''"),
@@ -50,11 +39,7 @@ def scrape_billboard():
          "weeks_on_chart": item.find_all('span')[6].get_text().strip(),
          "direction": dir or pos_last_week
       }
-      
-         dir = None
-      
       else:
-
          billboard_entry = {
             "artist": item.h3.find_next('span').get_text().strip().replace("'", "''"),
             "song_name": item.h3.get_text().strip().replace("'", "''"),
@@ -64,9 +49,8 @@ def scrape_billboard():
             "weeks_on_chart": item.find_all('span')[4].get_text().strip(),
             "direction": dir or pos_last_week
          }
-         
-         dir = None
 
+      dir = None
       billboard_entries.append(billboard_entry)
    
    return billboard_entries
@@ -80,12 +64,3 @@ def save_items(list):
    for song in list:
       cur.execute(f"INSERT INTO song_rankings (artist, song_name, position, position_last_Week, position_peak, weeks_on_chart, direction, date) VALUES ('{song['artist']}', '{song['song_name']}', '{song['position']}', '{song['position_last_week']}', '{song['position_peak']}', '{song['weeks_on_chart']}', '{song['direction']}', '{date.today()}');")
       conn.commit()
-
-
-# Used this for debugging
-# result = scrape_billboard()
-
-# with open('scraped_results.json', 'w') as file:
-#     json.dump(result, file, indent=4)
-
-# print("Results saved to scraped_results.json")
