@@ -1,12 +1,12 @@
 # Overview
-To complete
+An art project of the weekly billboard chart
 
 # Implementation Details 
-## Backend 
-Backend is written in Python and is a Flask App Deployed on Vercel 
+* Backend is written in Python and is a Flask App Deployed on Render
+* Cron a Python written AWS Lambda with an AWS EventBridge cron event every Tuesday (32 5 ? * 3 * ). The CRON hits the backend and tell it to perform the scrape amd save it to the database. 
+* Frontend is NextJS and deployed on Vercel
 
-## Cron 
-Cron a Python written AWS Lambda with an AWS EventBridge cron event every Tuesday (32 5 ? * 3 * ). The CRON hits the backend and tell it to perform the scrape amd save it to the database. 
+![infrastructure](./docs/screenshots/infrastructure.png)
 
 # Getting Started Guide
 ## Backend 
@@ -21,6 +21,8 @@ Cron a Python written AWS Lambda with an AWS EventBridge cron event every Tuesda
 9. Start the flask server with `flask --debug run`
 10. Server will be running on http://127.0.0.1:5000
 
-To do 
-1. spin up the frontend 
-2. tidy it up 
+## Frontend
+1. Ensure node installed with `$ node --version`. The project supports node 20.10.0
+2. Install the frontend with `$ npm i`
+3. Start up the server with `$ pnpm dev`
+4. Frontend server will be up and running on http://localhost:3000/
