@@ -60,7 +60,7 @@ function IndexPage() {
               <p className='flex justify-center'>{song.position - 300}</p>
               <div className='col-span-7 flex flex-col justify-center'>
                 <div className='flex justify-between w-full mx-2'> 
-                  <p className='ml-2'>{song.song_name}</p>
+                  <p className='ml-2 font-bold'>{song.song_name}</p>
                   <p className='mr-2'>{song.artist}</p>
                 </div>
               </div>
