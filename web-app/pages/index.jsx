@@ -11,7 +11,7 @@ function IndexPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/lost');
+        const response = await fetch('/api/chart');
         const result = await response.json();
         setData(result);
       } catch  (error) {

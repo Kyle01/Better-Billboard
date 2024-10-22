@@ -30,7 +30,7 @@ function LoadingPage() {
           {[...Array(100)].map((_x, i) => (
             <div className='col-span-12 grid grid-cols-12 h-12 *:h-12 *:flex *:flex-col *:justify-center *:items-center items-center border-b border-black divide-x divide-black'>
               <p className='flex justify-center text-center'>-</p>
-              <p className='flex justify-center'>{i}</p>
+              <p className='flex justify-center'>{i + 1}</p>
               <div className='col-span-7 flex flex-col justify-center'>
                 <div className='lg:flex justify-between w-full lg:px-2 block ml-2 lg:m-0'> 
                   <p className='font-bold'>-</p>
@@ -38,7 +38,7 @@ function LoadingPage() {
                 </div>
               </div>
               <p className='flex justify-center'>-</p>
-              <p className='flex justify-center'>{i}</p>
+              <p className='flex justify-center'>{i + 1}</p>
               <p className='flex justify-center'>-</p>
             </div>
           ))}
