@@ -46,7 +46,7 @@ function IndexPage() {
 
   return (
     <div className='flex justify-center w-full'>
-      <div className='lg:max-w-[850px]'>
+      <div className='lg:max-w-[850px] w-full'>
         <h3 className='font-bold text-xl mt-4 '>billboard</h3>
         <div className='flex space-x-2 items-baseline'>
           <h1 className='uppercase font-bold text-red-600 text-4xl'>Hot 100</h1>
@@ -72,8 +72,8 @@ function IndexPage() {
               <p className='flex justify-center'>{song.position % 100}</p>
               <div className='col-span-7 flex flex-col justify-center'>
                 <div className='lg:flex justify-between w-full lg:px-2 block ml-2 lg:m-0'> 
-                  <p className='font-bold'>{song.song_name}</p>
-                  <p className='lg:text-base text-sm'>{song.artist}</p>
+                  <p className='font-bold lg:text-base text-sm'>{song.song_name}</p>
+                  <p className='lg:text-base text-xs'>{song.artist}</p>
                 </div>
               </div>
               <p  className={`flex justify-center ${directionStyle(song.direction)}`}>{directionSymbol(song.direction)}</p>

@@ -7,7 +7,7 @@ function LoadingPage() {
 
   return (
     <div className='flex justify-center w-full'>
-      <div className='lg:max-w-[850px]'>
+      <div className='lg:max-w-[850px] w-full'>
         <h3 className='font-bold text-xl mt-4 '>billboard</h3>
         <div className='flex space-x-2 items-baseline'>
           <h1 className='uppercase font-bold text-red-600 text-4xl'>Hot 100</h1>
