@@ -1,48 +1,9 @@
-'use client'
-import { useEffect, useState } from 'react';
-import LoadingPage from './LoadingPage'
-import ErrorPage from './ErrorPage'
-
-function IndexPage() {
-  const [data, setData] = useState(null);
-  const [errors, setErrors] = useState(null)
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/chart');
-        const result = await response.json();
-        setData(result);
-      } catch  (error) {
-        setErrors(error)
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (errors) {
-    return (
-      <ErrorPage />
-    )
-  }
-  
-  if (loading || !data) {
-    return <LoadingPage />;
-  }
-
-
-  const chartDate = new Date(data[0].date).toLocaleDateString(undefined, {
+function LoadingPage() {
+  const chartDate = new Date().toLocaleDateString(undefined, {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
   })
-
-  const directionSymbol = (symbol) => symbol === 'up' ? '▲' : symbol === 'down' ? '▼' : null
-  const directionStyle = (symbol) => symbol === 'up' ? ' text-green-600' : symbol === 'down' ? ' text-red-600' : null
 
   return (
     <div className='flex justify-center w-full'>
@@ -66,19 +27,19 @@ function IndexPage() {
           <p className='text-center flex flex-col justify-center text-xs lg:text-lg'>Weeks on Chart</p>
         </div>
         <div className='border-x border-black mb-24'>
-          {data.map((song) => (
+          {[...Array(100)].map((_x, i) => (
             <div className='col-span-12 grid grid-cols-12 h-12 *:h-12 *:flex *:flex-col *:justify-center *:items-center items-center border-b border-black divide-x divide-black'>
-              <p className='flex justify-center text-center'>{song.position_last_week}</p>
-              <p className='flex justify-center'>{song.position % 100}</p>
+              <p className='flex justify-center text-center'>-</p>
+              <p className='flex justify-center'>{i + 1}</p>
               <div className='col-span-7 flex flex-col justify-center'>
                 <div className='lg:flex justify-between w-full lg:px-2 block ml-2 lg:m-0'> 
-                  <p className='font-bold lg:text-base text-sm'>{song.song_name}</p>
-                  <p className='lg:text-base text-xs'>{song.artist}</p>
+                  <p className='font-bold'>-</p>
+                  <p className='lg:text-base text-sm'>-</p>
                 </div>
               </div>
-              <p  className={`flex justify-center ${directionStyle(song.direction)}`}>{directionSymbol(song.direction)}</p>
-              <p className='flex justify-center'>{song.position_peak}</p>
-              <p className='flex justify-center'>{song.weeks_on_chart}</p>
+              <p className='flex justify-center'>-</p>
+              <p className='flex justify-center'>{i + 1}</p>
+              <p className='flex justify-center'>-</p>
             </div>
           ))}
         </div>
@@ -88,4 +49,4 @@ function IndexPage() {
 
 }
 
-export default IndexPage
+export default LoadingPage
