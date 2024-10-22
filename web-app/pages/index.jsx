@@ -1,18 +1,22 @@
 'use client'
 import { useEffect, useState } from 'react';
 import LoadingPage from './LoadingPage'
+import ErrorPage from './ErrorPage'
 
 function IndexPage() {
   const [data, setData] = useState(null);
+  const [errors, setErrors] = useState(null)
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/chart');
+        const response = await fetch('/api/lost');
         const result = await response.json();
         setData(result);
-      }  finally {
+      } catch  (error) {
+        setErrors(error)
+      } finally {
         setLoading(false);
       }
     };
@@ -20,9 +24,16 @@ function IndexPage() {
     fetchData();
   }, []);
 
+  if (errors) {
+    return (
+      <ErrorPage />
+    )
+  }
+  
   if (loading || !data) {
     return <LoadingPage />;
   }
+
 
   const chartDate = new Date(data[0].date).toLocaleDateString(undefined, {
       year: 'numeric',
