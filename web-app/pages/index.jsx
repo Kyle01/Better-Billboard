@@ -1,6 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react';
+import { Metadata } from 'next';
 import LoadingPage from './LoadingPage'
+
+export const metadata = {
+  title: 'Top 100 Weekly Billboard',
+  description: 'The billboard top 100 weekly chart displayed beautifully with zero ads',
+};
 
 function IndexPage() {
   const [data, setData] = useState(null);
