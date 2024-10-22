@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react';
 import LoadingPage from './LoadingPage'
-import ErrorPage from './ErrorPage'
 
 function IndexPage() {
   const [data, setData] = useState(null);
