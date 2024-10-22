@@ -64,7 +64,3 @@ def save_items(list):
    for song in list:
       cur.execute(f"INSERT INTO song_rankings (artist, song_name, position, position_last_Week, position_peak, weeks_on_chart, direction, date) VALUES ('{song['artist']}', '{song['song_name']}', '{song['position']}', '{song['position_last_week']}', '{song['position_peak']}', '{song['weeks_on_chart']}', '{song['direction']}', '{date.today()}');")
       conn.commit()
-
-
-scrape = scrape_billboard()
-print(scrape)
