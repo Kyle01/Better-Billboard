@@ -5,7 +5,6 @@ import ErrorPage from './ErrorPage'
 
 function IndexPage() {
   const [data, setData] = useState(null);
-  const [errors, setErrors] = useState(null)
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -14,8 +13,6 @@ function IndexPage() {
         const response = await fetch('/api/chart');
         const result = await response.json();
         setData(result);
-      } catch  (error) {
-        setErrors(error)
       } finally {
         setLoading(false);
       }
@@ -24,16 +21,9 @@ function IndexPage() {
     fetchData();
   }, []);
 
-  if (errors) {
-    return (
-      <ErrorPage />
-    )
-  }
-  
   if (loading || !data) {
     return <LoadingPage />;
   }
-
 
   const chartDate = new Date(data[0].date).toLocaleDateString(undefined, {
       year: 'numeric',
