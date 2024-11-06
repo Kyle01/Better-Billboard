@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { Metadata } from 'next';
+import Link from 'next/link';
 import LoadingPage from './LoadingPage'
 
 export const metadata = {
@@ -60,7 +60,7 @@ function IndexPage() {
           <p className='text-center flex flex-col justify-center text-xs lg:text-lg'> Peak POS</p>
           <p className='text-center flex flex-col justify-center text-xs lg:text-lg'>Weeks on Chart</p>
         </div>
-        <div className='border-x border-black mb-24'>
+        <div className='border-x border-black'>
           {data.map((song) => (
             <div className='col-span-12 grid grid-cols-12 h-12 *:h-12 *:flex *:flex-col *:justify-center *:items-center items-center border-b border-black divide-x divide-black'>
               <p className='flex justify-center text-center'>{song.position_last_week}</p>
@@ -76,6 +76,9 @@ function IndexPage() {
               <p className='flex justify-center'>{song.weeks_on_chart}</p>
             </div>
           ))}
+        </div>
+        <div className='mt-4 mb-24 flex justify-center'>
+          <Link className='italic underline text-sm text-blue-600' href='/about'>about</Link>
         </div>
       </div>
     </div>
