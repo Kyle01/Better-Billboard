@@ -1,6 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import LoadingPage from './LoadingPage'
+
+export const metadata = {
+  title: 'Top 100 Weekly Billboard',
+  description: 'The billboard top 100 weekly chart displayed beautifully with zero ads',
+};
 
 function IndexPage() {
   const [data, setData] = useState(null);
@@ -45,7 +51,7 @@ function IndexPage() {
           <p className='text-center flex flex-col justify-center text-xs lg:text-lg'>LAST WEEK</p>
           <p className='text-center flex flex-col justify-center text-xs lg:text-lg'>THIS WEEK</p>
           <div className='col-span-7 flex flex-col justify-center'>
-            <div className='flex justify-between mx-2 text-xs lg:text-lg'>
+            <div className='lg:flex justify-between mx-2 text-xs lg:text-lg lg:px-2 block ml-2 lg:m-0'>
               <p>TITLE</p>
               <p>ARTIST</p>
             </div>
@@ -54,7 +60,7 @@ function IndexPage() {
           <p className='text-center flex flex-col justify-center text-xs lg:text-lg'> Peak POS</p>
           <p className='text-center flex flex-col justify-center text-xs lg:text-lg'>Weeks on Chart</p>
         </div>
-        <div className='border-x border-black mb-24'>
+        <div className='border-x border-black'>
           {data.map((song) => (
             <div className='col-span-12 grid grid-cols-12 h-12 *:h-12 *:flex *:flex-col *:justify-center *:items-center items-center border-b border-black divide-x divide-black'>
               <p className='flex justify-center text-center'>{song.position_last_week}</p>
@@ -70,6 +76,9 @@ function IndexPage() {
               <p className='flex justify-center'>{song.weeks_on_chart}</p>
             </div>
           ))}
+        </div>
+        <div className='mt-4 mb-24 flex justify-center'>
+          <Link className='italic underline text-sm text-blue-600' href='/about'>about</Link>
         </div>
       </div>
     </div>

@@ -17,7 +17,7 @@ function LoadingPage() {
           <p className='text-center flex flex-col justify-center text-xs lg:text-lg'>LAST WEEK</p>
           <p className='text-center flex flex-col justify-center text-xs lg:text-lg'>THIS WEEK</p>
           <div className='col-span-7 flex flex-col justify-center'>
-            <div className='flex justify-between mx-2 text-xs lg:text-lg'>
+            <div className='lg:flex justify-between mx-2 text-xs lg:text-lg lg:px-2 block ml-2 lg:m-0'>
               <p>TITLE</p>
               <p>ARTIST</p>
             </div>

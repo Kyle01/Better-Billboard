@@ -76,7 +76,6 @@ def fetch_all():
 def chart():
     last_tuesday_date = most_recent_tuesday()
     formatted_date = last_tuesday_date.strftime('%Y-%m-%d')
-    print(formatted_date)
     conn = get_db_connection()
     cur = conn.cursor()
     query = """
@@ -87,9 +86,7 @@ def chart():
     """
     cur.execute(query, (formatted_date,))
     results = []
-    print(cur)
     for row in cur:
-        print(row)
         billboard_entry = {
             "position": row[0],
             "artist": row[1],
